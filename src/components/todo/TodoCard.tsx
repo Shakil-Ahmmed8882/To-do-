@@ -1,9 +1,11 @@
-import { useDispatch } from "react-redux";
 import { Button } from "../ui/button";
-import { removeTodo, toggleComplete } from "../../redux/features/todoSlice";
+import { useState } from "react";
+import {
+  useUpdateTodoMutation,
+} from "../../redux/api/api";
 
 interface TtodoProps {
-  id: string;
+  _id: string;
   title: string;
   description: string;
   isCompleted?: boolean;
@@ -11,42 +13,59 @@ interface TtodoProps {
 }
 
 const TodoCard = ({
-  id,
+  _id,
   title,
   description,
   isCompleted,
   priority,
 }: TtodoProps): JSX.Element => {
-  const dispatch = useDispatch();
+  const [completed, setCompleted] = useState(isCompleted);
+  const [updateTodo, { data }] = useUpdateTodoMutation();
 
   // Toggle the completion state of a todo item
-  const toggleState = (id: string) => {
-    dispatch(toggleComplete(id));
+  const toggleState = (_id:string) => {
+    setCompleted((prevCompleted) => !prevCompleted);
+
+    // const taskData = {
+    //   title,
+    //   description,
+    //   isCompleted:!completed,
+    //   priority
+    // }
+    const taskData = {
+      id: _id,
+      data: {
+        isCompleted: !completed,
+      },
+    };
+
+    updateTodo(taskData);
   };
 
   return (
     <div className="bg-white rounded-lg flex items-center justify-between gap-5 p-3 border">
       <input
-        onChange={() => toggleState(id)}
+        onChange={() => toggleState(_id)}
         className="hover:cursor-pointer"
         type="checkbox"
-        checked={isCompleted}
-        id={`complete-${id}`}
+        // checked={isCompleted}
+        id={`complete-${_id}`}
       />
       <div className="flex-1">
         <p className="font-semibold text-start">{title}</p>
       </div>
       <div className="flex-1 flex items-center gap-2">
         <>
-          <span className={`w-3 h-3 rounded-full 
-            ${priority === 'high'?'bg-red-500':null}
-            ${priority === 'medium'?'bg-yellow-500':null}
-            ${priority === 'low'?'bg-green-500':null}
+          <span
+            className={`w-3 h-3 rounded-full 
+            ${priority === "high" ? "bg-red-500" : null}
+            ${priority === "medium" ? "bg-yellow-500" : null}
+            ${priority === "low" ? "bg-green-500" : null}
             
             
             
             `}
-            ></span>
+          ></span>
           <p>{priority}</p>
         </>
       </div>
@@ -61,7 +80,7 @@ const TodoCard = ({
         <p>{description}</p>
       </div>
       <div className="space-x-4">
-        <Button onClick={() => dispatch(removeTodo(id))} className="bg-red-500">
+        <Button className="bg-red-500">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

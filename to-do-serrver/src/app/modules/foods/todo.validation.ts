@@ -10,6 +10,17 @@ const createTodoValidationSchema = z.object({
   }),
 });
 
+const updateTodoValidationSchema = z.object({
+  body: z.object({
+    id: z.string().optional(),
+    title: z.string().min(1).optional(),
+    description: z.string().optional().optional(),
+    isCompleted: z.boolean().optional().optional(),
+    priority: z.string().optional().optional(),
+  }),
+});
+
 export const todoValidations = {
   createTodoValidationSchema,
+  updateTodoValidationSchema
 };

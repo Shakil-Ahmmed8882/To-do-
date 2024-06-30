@@ -4,8 +4,8 @@ import sendResponse from "../../utils/sendResponse";
 import { todoServices } from "./todo.service";
 
 const createTodo = catchAsync(async (req, res) => {
-  const food = req.body;
-  const result = await todoServices.createTodoIntoDB(food);
+  const todo = req.body;
+  const result = await todoServices.createTodoIntoDB(todo);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -14,6 +14,7 @@ const createTodo = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
 
 const getAllTodos = catchAsync(async (req, res) => {
   
@@ -29,8 +30,21 @@ const getAllTodos = catchAsync(async (req, res) => {
 
 
 
+const updateTodo = catchAsync(async (req, res) => {
+  const todo = req.body;
+  const id = req.params.id
+  const result = await todoServices.updateTodoIntoDB(id,todo);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Todo is updated successfully",
+    data: result,
+  });
+});
 
 export const todoControllers = {
   createTodo,
-  getAllTodos
+  getAllTodos,
+  updateTodo
 };

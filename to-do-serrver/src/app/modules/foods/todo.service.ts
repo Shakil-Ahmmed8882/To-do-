@@ -14,7 +14,17 @@ const getAllTodosFromDB = async (query: Record<string, unknown>) => {
   return await result.modelQuery;
 };
 
+const updateTodoIntoDB = async (id: string, payload: TTodo) => {
+  const result = await TodoModel.findByIdAndUpdate(id, payload, {
+    new: true,
+    runValidators: true,
+  });
+
+  return result;
+};
+
 export const todoServices = {
   createTodoIntoDB,
   getAllTodosFromDB,
+  updateTodoIntoDB,
 };

@@ -5,11 +5,18 @@ import { todoValidations } from "./todo.validation";
 
 const router = Router();
 
+router.get("/", todoControllers.getAllTodos);
+
 router.post(
   "/create-todo",
   validateRequest(todoValidations.createTodoValidationSchema),
   todoControllers.createTodo
 );
-router.get("/", todoControllers.getAllTodos);
+
+router.put(
+  "/:id",
+  validateRequest(todoValidations.updateTodoValidationSchema),
+  todoControllers.updateTodo
+);
 
 export const todoRoutes = router;
