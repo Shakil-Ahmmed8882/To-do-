@@ -1,8 +1,6 @@
 import { Button } from "../ui/button";
 import { useState } from "react";
-import {
-  useUpdateTodoMutation,
-} from "../../redux/api/api";
+import baseApi from "../../redux/api/api";
 
 interface TtodoProps {
   _id: string;
@@ -20,10 +18,10 @@ const TodoCard = ({
   priority,
 }: TtodoProps): JSX.Element => {
   const [completed, setCompleted] = useState(isCompleted);
-  const [updateTodo, { data }] = useUpdateTodoMutation();
+  const [updateTodo] = baseApi.useUpdateTodoMutation();
 
   // Toggle the completion state of a todo item
-  const toggleState = (_id:string) => {
+  const toggleState = (_id: string) => {
     setCompleted((prevCompleted) => !prevCompleted);
 
     // const taskData = {
@@ -48,7 +46,7 @@ const TodoCard = ({
         onChange={() => toggleState(_id)}
         className="hover:cursor-pointer"
         type="checkbox"
-        // checked={isCompleted}
+        defaultChecked={isCompleted}
         id={`complete-${_id}`}
       />
       <div className="flex-1">

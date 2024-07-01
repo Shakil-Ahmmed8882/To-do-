@@ -11,7 +11,7 @@ import {
 } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { useAddTodosMutation } from "../../redux/api/api";
+import baseApi from "../../redux/api/api";
 import {
   Select,
   SelectContent,
@@ -24,15 +24,14 @@ const AddTodoModal = (): JSX.Element => {
   const [task, setTask] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState("");
-  const [addTodo, { data, isLoading, isSuccess, isError }] =
-    useAddTodosMutation();
+  const [addTodo, ] =baseApi.useAddTodosMutation()
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     const id = Math.random().toString(36).substring(2);
 
     const taskDetails = {
-      id,
+      _id:id,
       title: task,
       description,
       isCompleted: false,

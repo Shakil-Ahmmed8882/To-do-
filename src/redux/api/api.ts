@@ -50,4 +50,10 @@ export const baseApi = createApi({
   }),
 });
 
-export const { useGetTaskTodosQuery, useAddTodosMutation, useUpdateTodoMutation } = baseApi;
+export default baseApi
+
+
+/*
+The inferred type of 'useAddTodosMutation' cannot be named without a reference to '../../../node_modules/@reduxjs/toolkit/dist/query/react/buildHooks'. This is likely not portable. A type annotation is necessary.ts(2742)
+
+*/

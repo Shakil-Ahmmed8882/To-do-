@@ -1,17 +1,16 @@
 import { useState } from "react";
-import { useGetTaskTodosQuery } from "../../redux/api/api";
 import { TTodo } from "../../redux/features/todoSlice";
 import AddTodoModal from "./AddTodoModal";
 import TodoCard from "./TodoCard";
 import TodoFilter from "./TodoFilter";
+import baseApi from "../../redux/api/api";
 
 const TodoContainer = (): JSX.Element => {
-  // From local state
-  // const {todos} = useAppSelector((state) => state.todos);
+
 
   // from server state
   const [priority, setPriority] = useState('')
-  const { data, isLoading } = useGetTaskTodosQuery(priority);
+  const { data, isLoading } = baseApi.useGetTaskTodosQuery(priority)
 
   if (isLoading) return <p>Loading...</p>;
   const todos = data.data;
@@ -25,7 +24,7 @@ const TodoContainer = (): JSX.Element => {
       <div className="bg-primary-gradient w-full h-full rounded-xl p-[5px]">
         <div className="bg-white p-5 rounded-lg space-y-2">
           {todos?.length ? (
-            todos.map((todo:TTodo) => <TodoCard key={todo.id} {...todo} />)
+            todos.map((todo:TTodo) => <TodoCard key={todo._id} {...todo} />)
           ) : (
             <div className="flex justify-center items-center p-5 text-2xl font-bold rounded-lg bg-white">
               <p>There is no task pending..</p>
