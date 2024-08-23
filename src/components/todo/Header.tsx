@@ -48,6 +48,7 @@ const Header = ({ priority, setPriority, setSearch }: THeaderParams): JSX.Elemen
 
   return (
     <motion.div className="flex mb-1 gap-2" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+      <Button onClick={() => setIsModalOpen(true)}>Add Todo</Button>
       <AddTodoModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       <TodoFilter priority={priority} setPriority={setPriority} />
       <Button onClick={() => setIsModalOpen(true)}>Shortcut</Button>

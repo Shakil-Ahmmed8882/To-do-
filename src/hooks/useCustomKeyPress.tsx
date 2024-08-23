@@ -12,7 +12,7 @@ const useKeyPress = (keyPressHandlers: KeyPressHandler[]) => {
       keyPressHandlers.forEach(({ key, handler, ctrlKey }) => {
         if (
           event.key.toLowerCase() === key.toLowerCase() &&
-          ctrlKey === event.ctrlKey // This ensures Ctrl must be pressed
+          (ctrlKey === undefined || ctrlKey === event.ctrlKey)
         ) {
           handler();
         }
