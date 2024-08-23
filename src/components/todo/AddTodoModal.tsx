@@ -7,11 +7,9 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import baseApi from "../../redux/api/api";
 import {
   Select,
   SelectContent,
@@ -19,33 +17,36 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import todoApi from "../../redux/features/todo/todo.api";
 
-const AddTodoModal = (): JSX.Element => {
+type AddTodoModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+};
+
+const AddTodoModal = ({ isOpen, onClose }: AddTodoModalProps): JSX.Element => {
   const [task, setTask] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState("");
-  const [addTodo, ] =baseApi.useAddTodosMutation()
+  const [addTodo] = todoApi.useAddTodosMutation();
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const id = Math.random().toString(36).substring(2);
 
     const taskDetails = {
-      _id:id,
       title: task,
       description,
       isCompleted: false,
       priority,
     };
+    console.log(taskDetails);
     addTodo(taskDetails);
+    onClose(); // Close the modal after submitting the form
   };
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button>Add todo</Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] ">
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Add task</DialogTitle>
           <DialogDescription>
@@ -55,24 +56,24 @@ const AddTodoModal = (): JSX.Element => {
         <form onSubmit={onSubmit} className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="task" className="text-right">
-              task
+              Task
             </Label>
             <Input
               onBlur={(e) => setTask(e.target.value)}
               id="task"
-              defaultValue="Pedro Duarte"
+              defaultValue=""
               className="col-span-3"
             />
           </div>
           {/* Description */}
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
+            <Label htmlFor="description" className="text-right">
               Description
             </Label>
             <Input
               onBlur={(e) => setDescription(e.target.value)}
-              id="username"
-              defaultValue="@peduarte"
+              id="description"
+              defaultValue=""
               className="col-span-3"
             />
           </div>
@@ -82,15 +83,14 @@ const AddTodoModal = (): JSX.Element => {
             <Label htmlFor="Priority" className="text-right">
               Priority
             </Label>
-
             <Select onValueChange={(value) => setPriority(value)}>
               <SelectTrigger className="w-full col-span-3">
                 <SelectValue placeholder="priority" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="high">high</SelectItem>
-                <SelectItem value="medium">medium</SelectItem>
-                <SelectItem value="low">low</SelectItem>
+                <SelectItem value="high">High</SelectItem>
+                <SelectItem value="medium">Medium</SelectItem>
+                <SelectItem value="low">Low</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -104,20 +104,3 @@ const AddTodoModal = (): JSX.Element => {
 };
 
 export default AddTodoModal;
-
-// Pririty select
-/*const SelectPriority = () => {
-  return (
-    <Select>
-      <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="priority" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="high">high</SelectItem>
-        <SelectItem value="medium">medium</SelectItem>
-        <SelectItem value="low">low</SelectItem>
-      </SelectContent>
-    </Select>
-  );
-};
-*/
