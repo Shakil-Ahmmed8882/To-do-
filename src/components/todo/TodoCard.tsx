@@ -41,7 +41,7 @@ const TodoCard = ({
   };
 
   return (
-    <div className="bg-white rounded-lg flex items-center justify-between gap-5 p-3 border">
+    <div className="!bg-[#1d1e21] border-0 rounded-lg flex items-center justify-between gap-5 p-2  ">
       <input
         onChange={() => toggleState(_id)}
         className="hover:cursor-pointer"
@@ -50,7 +50,7 @@ const TodoCard = ({
         id={`complete-${_id}`}
       />
       <div className="flex-1">
-        <p className="font-semibold text-start">{title}</p>
+        <p className="font-semibold text-white">{title}</p>
       </div>
       <div className="flex-1 flex items-center gap-2">
         <>
@@ -64,7 +64,7 @@ const TodoCard = ({
             
             `}
           ></span>
-          <p>{priority}</p>
+          <p className="text-white">{priority}</p>
         </>
       </div>
       <div className="flex-1">
@@ -74,18 +74,18 @@ const TodoCard = ({
           <p className="text-red-500">pending</p>
         )}
       </div>
-      <div className="flex-1 text-[#656565]">
+      <div className="flex-1 text-[#d6d4d4]">
         <p>{description}</p>
       </div>
       <div className="space-x-4">
-        <Button className="bg-red-500">
+        <Button className="bg-transparent">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
+            className="size-5 text-red-500"
           >
             <path
               strokeLinecap="round"
@@ -94,14 +94,14 @@ const TodoCard = ({
             />
           </svg>
         </Button>
-        <Button className="bg-[#5C53FE]">
+        <Button className="bg-transparent">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth="1.5"
             stroke="currentColor"
-            className="w-6 h-6"
+            className="size-5 text-[#5C53FE]"
           >
             <path
               strokeLinecap="round"

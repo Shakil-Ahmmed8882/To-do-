@@ -6,7 +6,6 @@ import { todoValidations } from "./todo.validation";
 const router = Router();
 
 router.get("/", todoControllers.getAllTodos);
-
 router.post(
   "/create-todo",
   validateRequest(todoValidations.createTodoValidationSchema),

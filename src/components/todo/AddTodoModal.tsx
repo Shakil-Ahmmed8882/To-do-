@@ -43,9 +43,9 @@ const AddTodoModal = (): JSX.Element => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="bg-primary-gradient">Add todo</Button>
+        <Button>Add todo</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] ">
         <DialogHeader>
           <DialogTitle>Add task</DialogTitle>
           <DialogDescription>
