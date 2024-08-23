@@ -1,7 +1,9 @@
+import { motion } from "framer-motion";
 import { DeleteIcon, EditIcon } from "../../assets/icons/Icons";
 import todoApi from "../../redux/features/todo/todo.api";
 import { Button } from "../ui/button";
 import { useState } from "react";
+
 
 interface TtodoProps {
   _id: string;
@@ -41,6 +43,14 @@ const TodoCard = ({
   };
 
   return (
+
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+      className="todo-card"
+      >
     <div className="!bg-[#1d1e21] border-0 rounded-lg flex items-center justify-between gap-5 p-2  ">
       <input
         onChange={() => toggleState(_id)}
@@ -89,6 +99,8 @@ const TodoCard = ({
         </Button>
       </div>
     </div>
+
+      </motion.div>
   );
 };
 

@@ -2,7 +2,8 @@ import { useRef, useState } from "react";
 import { Button } from "../ui/button";
 import AddTodoModal from "./AddTodoModal";
 import TodoFilter from "./TodoFilter";
-import useCustomKeyPress from "../../hooks/useCustomKeyPress";
+import { motion } from "framer-motion";
+import useKeyPress from "../../hooks/useCustomKeyPress";
 
 type THeaderParams = {
   priority: string;
@@ -10,18 +11,14 @@ type THeaderParams = {
   setSearch: (param: string) => void;
 };
 
-const Header = ({
-  priority,
-  setPriority,
-  setSearch,
-}: THeaderParams): JSX.Element => {
+const Header = ({ priority, setPriority, setSearch }: THeaderParams): JSX.Element => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Define key press handlers
   const keyPressHandlers = [
     {
-      key: 's',
+      key: 'm',
+      ctrlKey: true,
       handler: () => {
         if (inputRef.current) {
           inputRef.current.focus();
@@ -35,35 +32,35 @@ const Header = ({
           inputRef.current.blur();
           inputRef.current.value = "";
           setSearch("");
-          setPriority("");
         }
       }
     },
     {
       key: 'a',
+      ctrlKey: true,
       handler: () => {
         setIsModalOpen(true);
       }
     }
   ];
 
-  // Use the custom hook
-  useCustomKeyPress(keyPressHandlers);
+  useKeyPress(keyPressHandlers);
 
   return (
-    <div className="flex mb-1 gap-2">
-      <Button onClick={() => setIsModalOpen(true)}>Add Todo</Button>
+    <motion.div className="flex mb-1 gap-2" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+      <AddTodoModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       <TodoFilter priority={priority} setPriority={setPriority} />
       <Button onClick={() => setIsModalOpen(true)}>Shortcut</Button>
-      <input
+      <motion.input
         ref={inputRef}
         placeholder="search.."
         onChange={(e) => setSearch(e.target.value)}
         className="bg-[black] focus-within:outline-none text-[white] px-3 rounded-full placeholder:text-[white]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
       />
-      {/* modal open on add tood */}
-      <AddTodoModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-    </div>
+    </motion.div>
   );
 };
 
