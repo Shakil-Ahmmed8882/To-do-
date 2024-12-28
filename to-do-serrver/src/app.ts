@@ -8,7 +8,7 @@ const app = express();
 // parser
 app.use(express.json());
 app.use(cors({
-  origin: 'http://localhost:5173', // Allow this origin
+  origin: 'https://to-do-client-henna.vercel.app', // Allow this origin
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true // Enable credentials
