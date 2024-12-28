@@ -17,7 +17,7 @@ import {
 
 const baseQuery = fetchBaseQuery({
   // baseUrl: 'http://localhost:5000/api/v1',
-  baseUrl: 'http://localhost:7000/api/v1',
+  baseUrl: 'https://to-do-serrver.vercel.app/api/v1',
   credentials: 'include',
   // prepareHeaders: (headers, { getState }) => {
   //   const token = (getState() as RootState).auth.token;

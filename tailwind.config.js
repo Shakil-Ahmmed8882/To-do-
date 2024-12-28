@@ -1,5 +1,7 @@
+import tailwindAnimate from "tailwindcss-animate";
+
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   darkMode: ["class"],
   content: [
     './pages/**/*.{ts,tsx}',
@@ -71,10 +73,10 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
-      backgroundImage:{
-        'primary-gradient':'linear-gradient(30deg, #DC02C3, #5C53FE)'
-      }
+      backgroundImage: {
+        "primary-gradient": "linear-gradient(30deg, #DC02C3, #5C53FE)",
+      },
     },
   },
-  plugins: [import("tailwindcss-animate")],
-}
+  plugins: [tailwindAnimate],
+};
