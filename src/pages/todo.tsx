@@ -7,8 +7,8 @@ const Todo = () => {
     <>
     <Container>
       <article className="pt-14 pb-16">
-      <h1 className="text-5xl pb-6  text-center font-bold text-white">My todos</h1>
-      <p className="text-[#e1e0e0] text-2xl text-center"> Libero quasi pariatur, nisi repellat aperiam officia.</p>
+      <h1 className="text-5xl pb-6  text-center font-bold text-white">My Todos</h1>
+      <p className="text-[#e1e0e0] mx-auto text-2xl text-center"> A simple application to manage your daily tasks and stay organized.</p>
       </article>
       <TodoContainer />
     </Container>

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { useState } from "react";
 import { TTodo } from "../../redux/features/todo/todoSlice";
 import TodoCard from "./TodoCard";
 import Header from "./Header";

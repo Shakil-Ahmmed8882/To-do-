@@ -4,6 +4,20 @@ import { TResponseRedux } from "../../../types/global";
 
 const todoApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+
+
+    addTodos: builder.mutation({
+      query: (data) => {
+        return {
+          url: "/todos/create-todo",
+          method: "POST",
+          body: data,
+        };
+      },
+      invalidatesTags: ["todo"], 
+    }),
+
+
     getTaskTodos: builder.query({
       query: (args) => {
         console.log(args);
@@ -14,7 +28,7 @@ const todoApi = baseApi.injectEndpoints({
             params.append(item.name, item.value as string);
           });
         }
-
+        
         return {
           url: "/todos/",
           method: "GET",
@@ -45,16 +59,7 @@ const todoApi = baseApi.injectEndpoints({
     //     },
     //     providesTags: ['todo'],
     //   }),
-    addTodos: builder.mutation({
-      query: (data) => {
-        return {
-          url: "/todos/create-todo",
-          method: "POST",
-          body: data,
-        };
-      },
-      invalidatesTags: ["todo"], 
-    }),
+    
 
     updateTodo: builder.mutation({
       query: (props) => {
